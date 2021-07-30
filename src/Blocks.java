@@ -1,7 +1,6 @@
 package src;
 
 import java.awt.Rectangle;
-import java.awt.Color;
 import java.awt.Graphics;
 
 public class Blocks extends Rectangle{
