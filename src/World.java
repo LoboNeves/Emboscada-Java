@@ -10,19 +10,19 @@ public class World {
     public static List<Blocks> blocos = new ArrayList<Blocks>();
 
     public World() {
-        for(int xx = 0; xx < 15*2; xx++) {
+        for(int xx = 0; xx < 20; xx++) {
             blocos.add(new Blocks(xx*32, 0));
         }
 
-        for(int xx = 0; xx < 15*2; xx++) {
+        for(int xx = 0; xx < 20; xx++) {
             blocos.add(new Blocks(xx*32, 480-32));
         }
 
-        for(int yy = 0; yy < 15*2; yy++) {
+        for(int yy = 0; yy < 15; yy++) {
             blocos.add(new Blocks(0, yy*32));
         }
 
-        for(int yy = 0; yy < 15*2; yy++) {
+        for(int yy = 0; yy < 15; yy++) {
             blocos.add(new Blocks(640-32, yy*32));
         }
 
