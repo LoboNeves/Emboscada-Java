@@ -16,7 +16,11 @@ public class Bullet extends Rectangle{
     }
 
     public void tick() {
-        x += speed*dir; 
+        if(dir == 1) x += speed*1;
+        else if (dir == 2) x += speed*-1;
+        else if (dir == 3) y += speed*-1;
+        else if (dir == 4) y += speed*1;
+
         frames++;
         if(frames == 60) {
             Player.bullets.remove(this);

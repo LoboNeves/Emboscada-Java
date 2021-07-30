@@ -32,16 +32,18 @@ public class Player extends Rectangle{
         else if (left && World.isFree(x-spd, y)) {
             x-=spd;
             moved = true;
-            dir = -1;
+            dir = 2;
         }
 
         if(up && World.isFree(x, y-spd)) {
             y-=spd;
             moved = true;
+            dir = 3;
         }
         else if (down && World.isFree(x, y+spd)) {
             y+=spd;
             moved = true;
+            dir = 4;
         }
 
         if(moved){
