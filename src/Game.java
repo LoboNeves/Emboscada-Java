@@ -20,7 +20,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
     public World world;
 
-    public List<Enemy> enemys = new ArrayList<Enemy>();
+    public static String gameState = "NORMAL";
+
+    public static List<Enemy> enemys = new ArrayList<Enemy>();
 
     public Game() {
         this.addKeyListener(this);
@@ -42,18 +44,14 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
         for(int i = 0; i < enemys.size(); i++) {
             enemys.get(i).tick();
-            if(Player.Hit(enemys.get(i).x, enemys.get(i).y)) {
-                enemys.remove(enemys.get(i));
-            }
-            if(Enemy.Hit(player.x, player.y)) {
-                System.exit(0);
-            }
         }
 
         for(int i = 0; i < World.blocos.size(); i++) {
             Blocks curBlock = World.blocos.get(i);
             Player.Hit(curBlock.x, curBlock.y);
-            Enemy.Hit(curBlock.x, curBlock.y);
+            for(int j = 0; j < enemys.size(); j++) {
+                enemys.get(j).Hit(curBlock.x, curBlock.y);
+            }
         }
     }
 

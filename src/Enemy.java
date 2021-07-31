@@ -15,7 +15,7 @@ public class Enemy extends Rectangle{
     public int curFramesMovement = 0, targetFramesMovement = 15;
     public int curFramesShoot = 0, targetFramesShoot = 15;
 
-    public static List<Bullet> bullets = new ArrayList<Bullet>();
+    public List<Bullet> bullets = new ArrayList<Bullet>();
     public boolean shoot = false;
 
     public int dir = 1;
@@ -57,8 +57,8 @@ public class Enemy extends Rectangle{
         }
     }
 
-    public static boolean Hit(int x, int y) {
-        for(int i = 0; i < Enemy.bullets.size(); i++) {
+    public boolean Hit(int x, int y) {
+        for(int i = 0; i < bullets.size(); i++) {
             Bullet CurBullet = bullets.get(i);
             if(CurBullet.intersects(new Rectangle(x, y, 32, 32))) {
                 bullets.remove(CurBullet);
@@ -72,7 +72,7 @@ public class Enemy extends Rectangle{
         boolean moved = true;
 
         perseguirPlayer();
-        
+
         if(moved){
             curFramesMovement++;
             if(curFramesMovement == targetFramesMovement) {
@@ -95,6 +95,10 @@ public class Enemy extends Rectangle{
 
         for(int i = 0; i < bullets.size(); i++) {
             bullets.get(i).tick();
+        }
+
+        if(Hit(Game.player.x, Game.player.y)) {
+            System.exit(0);
         }
     }
 

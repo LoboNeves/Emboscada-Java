@@ -76,6 +76,12 @@ public class Player extends Rectangle{
         for(int i = 0; i < bullets.size(); i++) {
             bullets.get(i).tick();
         }
+
+        for(int i = 0; i < Game.enemys.size(); i++) {
+            if(Hit(Game.enemys.get(i).x, Game.enemys.get(i).y)) {
+                Game.enemys.remove(Game.enemys.get(i));
+            }
+        }
     }
 
     public void render(Graphics g) {
