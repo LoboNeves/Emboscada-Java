@@ -22,6 +22,17 @@ public class Player extends Rectangle{
         super(x, y, 32, 32);
     }
 
+    public static boolean Hit(int x, int y) {
+        for(int i = 0; i < Player.bullets.size(); i++) {
+            Bullet CurBullet = bullets.get(i);
+            if(CurBullet.intersects(new Rectangle(x, y, 32, 32))) {
+                bullets.remove(CurBullet);
+                return true; 
+            }
+        }
+        return false;
+    }
+
     public void tick() {
         boolean moved = false;
         if(right && World.isFree(x+spd, y)) {

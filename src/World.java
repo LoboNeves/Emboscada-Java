@@ -30,7 +30,10 @@ public class World {
         blocos.add(new Blocks(640-128, 96));
         blocos.add(new Blocks(640-128, 480-128));
         blocos.add(new Blocks(96, 480-128));
-        blocos.add(new Blocks(288, 208));
+        blocos.add(new Blocks(320, 240));
+        blocos.add(new Blocks(320, 176));
+        blocos.add(new Blocks(256, 240));
+        blocos.add(new Blocks(256, 176));
 
     }
 

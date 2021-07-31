@@ -29,10 +29,12 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
         world = new World();
 
-        player = new Player(32, 32);
+        player = new Player(288, 208);
 
         enemys.add(new Enemy(32, 32));
-        enemys.add(new Enemy(32, 32));
+        enemys.add(new Enemy(640-64, 32));
+        enemys.add(new Enemy(640-64, 480-64));
+        enemys.add(new Enemy(32, 480-64));
     }
 
     public void tick() {
@@ -40,6 +42,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
         for(int i = 0; i < enemys.size(); i++) {
             enemys.get(i).tick();
+            if(Player.Hit(enemys.get(i).x, enemys.get(i).y)) {
+                enemys.remove(enemys.get(i));
+            }
         }
     }
 

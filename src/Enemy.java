@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Enemy extends Rectangle{
 
-    public int spd = 3;
+    public int spd = 2;
     public int right = 1, up = 0, down = 0, left = 0;
 
     public int curAnimation = 0;
@@ -27,23 +27,36 @@ public class Enemy extends Rectangle{
         Player p = Game.player;
         if(x < p.x && World.isFree(x+spd, y)) {
             dir = 1;
-            if(new Random().nextInt(100) < 50)
-                x += spd;
-        }else if(x > p.x && World.isFree(x-spd, y)) {
+            if(new Random().nextInt(100) < 50) x += spd;
+            if(new Random().nextInt(130) < 1) this.shoot = true;
+        }
+        else if(x > p.x && World.isFree(x-spd, y)) {
             dir = 2;
-            if(new Random().nextInt(100) < 50)
-                x-=spd;
+            if(new Random().nextInt(100) < 50) x-=spd;
+            if(new Random().nextInt(130) < 1) this.shoot = true;
         }
 
         if(y < p.y && World.isFree(x, y+spd)) {
             dir = 4;
-            if(new Random().nextInt(100) < 50)
-                y += spd;
-        }else if(y > p.y && World.isFree(x, y-spd)) {
-            dir = 3;
-            if(new Random().nextInt(100) < 50)
-                y-=spd;
+            if(new Random().nextInt(100) < 50) y += spd;
+            if(new Random().nextInt(130) < 1) this.shoot = true;
         }
+        else if(y > p.y && World.isFree(x, y-spd)) {
+            dir = 3;
+            if(new Random().nextInt(100) < 50) y-=spd;
+            if(new Random().nextInt(130) < 1) this.shoot = true;
+        }
+    }
+
+    public static boolean Hit(int x, int y) {
+        for(int i = 0; i < Enemy.bullets.size(); i++) {
+            Bullet CurBullet = bullets.get(i);
+            if(CurBullet.intersects(new Rectangle(x, y, 32, 32))) {
+                bullets.remove(CurBullet);
+                return true; 
+            }
+        }
+        return false;
     }
 
     public void tick() {
