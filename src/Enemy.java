@@ -28,23 +28,23 @@ public class Enemy extends Rectangle{
         if(x < p.x && World.isFree(x+spd, y)) {
             dir = 1;
             if(new Random().nextInt(100) < 50) x += spd;
-            if(new Random().nextInt(130) < 1) this.shoot = true;
+            if(new Random().nextInt(140) < 1) this.shoot = true;
         }
         else if(x > p.x && World.isFree(x-spd, y)) {
             dir = 2;
             if(new Random().nextInt(100) < 50) x-=spd;
-            if(new Random().nextInt(130) < 1) this.shoot = true;
+            if(new Random().nextInt(140) < 1) this.shoot = true;
         }
 
         if(y < p.y && World.isFree(x, y+spd)) {
             dir = 4;
             if(new Random().nextInt(100) < 50) y += spd;
-            if(new Random().nextInt(130) < 1) this.shoot = true;
+            if(new Random().nextInt(140) < 1) this.shoot = true;
         }
         else if(y > p.y && World.isFree(x, y-spd)) {
             dir = 3;
             if(new Random().nextInt(100) < 50) y-=spd;
-            if(new Random().nextInt(130) < 1) this.shoot = true;
+            if(new Random().nextInt(140) < 1) this.shoot = true;
         }
     }
 

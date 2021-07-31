@@ -46,6 +46,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
                 enemys.remove(enemys.get(i));
             }
         }
+
+        for(int i = 0; i < World.blocos.size(); i++) {
+            Blocks curBlock = World.blocos.get(i);
+            Player.Hit(curBlock.x, curBlock.y);
+        }
     }
 
     public void render() {
