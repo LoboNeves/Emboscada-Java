@@ -26,6 +26,12 @@ public class World {
             blocos.add(new Blocks(640-32, yy*32));
         }
 
+        blocos.add(new Blocks(96, 96));
+        blocos.add(new Blocks(640-128, 96));
+        blocos.add(new Blocks(640-128, 480-128));
+        blocos.add(new Blocks(96, 480-128));
+        blocos.add(new Blocks(288, 208));
+
     }
 
     public static boolean isFree(int x, int y) {
