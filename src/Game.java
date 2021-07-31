@@ -45,11 +45,15 @@ public class Game extends Canvas implements Runnable, KeyListener{
             if(Player.Hit(enemys.get(i).x, enemys.get(i).y)) {
                 enemys.remove(enemys.get(i));
             }
+            if(Enemy.Hit(player.x, player.y)) {
+                System.exit(0);
+            }
         }
 
         for(int i = 0; i < World.blocos.size(); i++) {
             Blocks curBlock = World.blocos.get(i);
             Player.Hit(curBlock.x, curBlock.y);
+            Enemy.Hit(curBlock.x, curBlock.y);
         }
     }
 

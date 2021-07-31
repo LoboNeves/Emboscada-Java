@@ -34,7 +34,8 @@ public class World {
         blocos.add(new Blocks(320, 176));
         blocos.add(new Blocks(256, 240));
         blocos.add(new Blocks(256, 176));
-
+        blocos.add(new Blocks(288, 96));
+        blocos.add(new Blocks(288, 480-128));
     }
 
     public static boolean isFree(int x, int y) {

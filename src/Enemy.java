@@ -12,7 +12,8 @@ public class Enemy extends Rectangle{
     public int right = 1, up = 0, down = 0, left = 0;
 
     public int curAnimation = 0;
-    public int curFrames = 0, targetFrames = 15;
+    public int curFramesMovement = 0, targetFramesMovement = 15;
+    public int curFramesShoot = 0, targetFramesShoot = 15;
 
     public static List<Bullet> bullets = new ArrayList<Bullet>();
     public boolean shoot = false;
@@ -27,24 +28,32 @@ public class Enemy extends Rectangle{
         Player p = Game.player;
         if(x < p.x && World.isFree(x+spd, y)) {
             dir = 1;
-            if(new Random().nextInt(100) < 50) x += spd;
-            if(new Random().nextInt(140) < 1) this.shoot = true;
+            if(new Random().nextInt(100) < 50) {
+                x += spd;
+                this.shoot = true;
+            }
         }
         else if(x > p.x && World.isFree(x-spd, y)) {
             dir = 2;
-            if(new Random().nextInt(100) < 50) x-=spd;
-            if(new Random().nextInt(140) < 1) this.shoot = true;
+            if(new Random().nextInt(100) < 50) {
+                x -= spd;
+                this.shoot = true;
+            }
         }
 
         if(y < p.y && World.isFree(x, y+spd)) {
             dir = 4;
-            if(new Random().nextInt(100) < 50) y += spd;
-            if(new Random().nextInt(140) < 1) this.shoot = true;
+            if(new Random().nextInt(100) < 50) {
+                y += spd;
+                this.shoot = true;
+            }
         }
         else if(y > p.y && World.isFree(x, y-spd)) {
             dir = 3;
-            if(new Random().nextInt(100) < 50) y-=spd;
-            if(new Random().nextInt(140) < 1) this.shoot = true;
+            if(new Random().nextInt(100) < 50) {
+                y -= spd;
+                this.shoot = true;
+            }
         }
     }
 
@@ -63,11 +72,11 @@ public class Enemy extends Rectangle{
         boolean moved = true;
 
         perseguirPlayer();
-
+        
         if(moved){
-            curFrames++;
-            if(curFrames == targetFrames) {
-                curFrames = 0;
+            curFramesMovement++;
+            if(curFramesMovement == targetFramesMovement) {
+                curFramesMovement = 0;
                 curAnimation++;
                 if(curAnimation == 2) {
                     curAnimation = 0;
@@ -77,7 +86,11 @@ public class Enemy extends Rectangle{
 
         if(shoot) {
             shoot = false;
-            bullets.add(new Bullet(x, y, dir));
+            curFramesShoot++;
+            if(curFramesShoot == targetFramesShoot) {
+                curFramesShoot = 0;
+                bullets.add(new Bullet(x, y, dir));
+            }
         }
 
         for(int i = 0; i < bullets.size(); i++) {
