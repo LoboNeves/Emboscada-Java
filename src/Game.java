@@ -3,7 +3,9 @@ package src;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
@@ -21,6 +23,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
     public World world;
 
     public static String gameState = "NORMAL";
+    private boolean showMessageGameOver = false;
+    private int framesGameOver = 0;
+    private boolean restartGame = false;
 
     public static List<Enemy> enemys = new ArrayList<Enemy>();
 
@@ -40,17 +45,43 @@ public class Game extends Canvas implements Runnable, KeyListener{
     }
 
     public void tick() {
-        player.tick();
+        if(gameState == "NORMAL") {
+            this.restartGame = false;
+            player.tick();
 
-        for(int i = 0; i < enemys.size(); i++) {
-            enemys.get(i).tick();
+            for(int i = 0; i < enemys.size(); i++) {
+                enemys.get(i).tick();
+            }
+    
+            for(int i = 0; i < World.blocos.size(); i++) {
+                Blocks curBlock = World.blocos.get(i);
+                Player.Hit(curBlock.x, curBlock.y);
+                for(int j = 0; j < enemys.size(); j++) {
+                    enemys.get(j).Hit(curBlock.x, curBlock.y);
+                }
+            }
         }
+        else if(gameState == "GAME_OVER" || gameState == "GAME_WON") {
+            this.framesGameOver++;
+            if(this.framesGameOver == 30) {
+                this.framesGameOver = 0;
+                if(this.showMessageGameOver) this.showMessageGameOver = false;
+                else this.showMessageGameOver = true;
+            }
 
-        for(int i = 0; i < World.blocos.size(); i++) {
-            Blocks curBlock = World.blocos.get(i);
-            Player.Hit(curBlock.x, curBlock.y);
-            for(int j = 0; j < enemys.size(); j++) {
-                enemys.get(j).Hit(curBlock.x, curBlock.y);
+            if(restartGame) {
+                this.restartGame = false;
+                gameState = "NORMAL";
+                world = new World();
+
+                player = new Player(288, 208);
+
+                enemys.clear();
+        
+                enemys.add(new Enemy(32, 32));
+                enemys.add(new Enemy(640-64, 32));
+                enemys.add(new Enemy(640-64, 480-64));
+                enemys.add(new Enemy(32, 480-64));
             }
         }
     }
@@ -75,6 +106,29 @@ public class Game extends Canvas implements Runnable, KeyListener{
         }
 
         world.render(g);
+
+        if(gameState == "GAME_OVER") {
+            Graphics2D g2 = (Graphics2D) g;
+
+            g2.setColor(new Color(0, 0, 0, 100));
+            g2.fillRect(0, 0, WIDTH, HEIGHT);
+            g.setFont(new Font("arial", Font.BOLD, 28));
+            g.setColor(Color.red);
+            g.drawString("Morreu na emboscada", 150, 230);
+
+            if(showMessageGameOver) g.drawString(">Pressione ENTER para tentar de novo<", 50, 300);
+        }
+        else if(gameState == "GAME_WON") {
+            Graphics2D g2 = (Graphics2D) g;
+
+            g2.setColor(new Color(0, 0, 0, 100));
+            g2.fillRect(0, 0, WIDTH, HEIGHT);
+            g.setFont(new Font("arial", Font.BOLD, 28));
+            g.setColor(Color.white);
+            g.drawString("Sobreviveu a emboscada", 130, 230);
+
+            if(showMessageGameOver) g.drawString(">Pressione ENTER para tentar de novo<", 50, 300);
+        }
 
         bs.show();
     }
@@ -131,6 +185,10 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
         if(e.getKeyCode() == KeyEvent.VK_Z) {
             player.shoot = true;
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+            this.restartGame = true;
         }
     }
 

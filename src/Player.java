@@ -82,6 +82,10 @@ public class Player extends Rectangle{
                 Game.enemys.remove(Game.enemys.get(i));
             }
         }
+
+        if(Game.enemys.size() == 0) {
+            Game.gameState = "GAME_WON";
+        };
     }
 
     public void render(Graphics g) {

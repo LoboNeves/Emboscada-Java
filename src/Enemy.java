@@ -98,7 +98,7 @@ public class Enemy extends Rectangle{
         }
 
         if(Hit(Game.player.x, Game.player.y)) {
-            System.exit(0);
+            Game.gameState = "GAME_OVER";
         }
     }
 
