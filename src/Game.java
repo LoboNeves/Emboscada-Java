@@ -153,7 +153,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
         JFrame frame = new JFrame();
 
         frame.add(game);
-        frame.setTitle("Mini Zelda");
+        frame.setTitle("Emboscada");
         frame.pack();
 
         frame.setLocationRelativeTo(null);
