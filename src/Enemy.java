@@ -18,7 +18,7 @@ public class Enemy extends Rectangle{
     public List<Bullet> bullets = new ArrayList<Bullet>();
     public boolean shoot = false;
 
-    public int dir = 1;
+    public int dir = 4;
 
     public Enemy(int x, int y) {
         super(x, y, 32, 32);

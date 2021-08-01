@@ -22,7 +22,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
     public World world;
 
-    public static String gameState = "NORMAL";
+    public static String gameState = "GAME_TITLE";
     private boolean showMessageGameOver = false;
     private int framesGameOver = 0;
     private boolean restartGame = false;
@@ -61,7 +61,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
                 }
             }
         }
-        else if(gameState == "GAME_OVER" || gameState == "GAME_WON") {
+        else if(gameState == "GAME_OVER" || gameState == "GAME_WON" || gameState == "GAME_TITLE") {
             this.framesGameOver++;
             if(this.framesGameOver == 30) {
                 this.framesGameOver = 0;
@@ -72,7 +72,6 @@ public class Game extends Canvas implements Runnable, KeyListener{
             if(restartGame) {
                 this.restartGame = false;
                 gameState = "NORMAL";
-                world = new World();
 
                 player = new Player(288, 208);
 
@@ -106,6 +105,22 @@ public class Game extends Canvas implements Runnable, KeyListener{
         }
 
         world.render(g);
+
+        if(gameState == "GAME_TITLE") {
+            Graphics2D g2 = (Graphics2D) g;
+
+            g2.setColor(new Color(0, 0, 0, 100));
+            g2.fillRect(0, 0, WIDTH, HEIGHT);
+            g.setFont(new Font("arial", Font.BOLD, 45));
+            g.setColor(Color.red);
+            g.drawString("EMBOSCADA", 165, 80);
+
+            g.setFont(new Font("arial", Font.BOLD, 28));
+            if(showMessageGameOver) {
+                g.drawString(">Pressione ENTER para iniciar<", 100, 300);
+                g.drawString(">e Z para atirar<", 200, 420);
+            }
+        }
 
         if(gameState == "GAME_OVER") {
             Graphics2D g2 = (Graphics2D) g;
